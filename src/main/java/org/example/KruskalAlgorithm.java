@@ -1,6 +1,9 @@
+package org.example;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
 
 import java.io.File;
 import java.util.*;
@@ -8,10 +11,16 @@ import java.util.*;
 public class KruskalAlgorithm {
 
     static class Edge {
-        int from, to, weight;
+        @JsonProperty("from")
+        int from;
 
-        public Edge() {
-        }
+        @JsonProperty("to")
+        int to;
+
+        @JsonProperty("weight")
+        int weight;
+
+        public Edge() {}
 
         public Edge(int from, int to, int weight) {
             this.from = from;
@@ -34,8 +43,7 @@ public class KruskalAlgorithm {
             public int nodes;
             public List<Edge> edges;
 
-            public Graph() {
-            }
+            public Graph() {}
 
             @JsonCreator
             public Graph(@JsonProperty("id") String id, @JsonProperty("nodes") int nodes, @JsonProperty("edges") List<Edge> edges) {
