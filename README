@@ -1,0 +1,89 @@
+In this assignment, I implemented algorithms such as Prima and Kraskala. The goal of the task was to optimize the city's transport networks by defining a minimum set of roads that connect all areas of the city with the lowest possible construction costs.  In my project, in addition to the two algorithms, there is already a pre-defined input data that is in a json file.
+
+1. Main tasks:
+
+Application of the Prim and Kruskal algorithms to find the minimum spanning tree (MST) for different graphs modeling the city's transport network.
+
+Evaluation and comparison of these two algorithms in terms of performance (running time, number of operations).
+
+Automated testing of the correctness of algorithms.
+
+Generating and saving the results to a CSV file.
+
+Implemented functions:
+
+Application of MST algorithms:
+
+The Prim algorithm uses a priority queue (min-heap) to build a minimum spanning tree, taking into account the cost of roads.
+
+Kraskal's algorithm sorts all edges by weight and connects the components, providing a minimal set of roads to connect all urban areas.
+
+Testing:
+
+Correctness and performance tests were performed for each algorithm.:
+
+Checking that both algorithms give the same cost of MST.
+
+Checking that the number of edges in the MST
+is 𝑉 -1
+V
+−
+1, where
+𝑉
+V is the number of vertices.
+
+Checking for no cycles in the MST.
+
+Analysis of execution time and number of operations for each algorithm.
+
+Writing to a CSV file:
+
+The results for each graph are saved to a CSV file, including:
+
+ID of the graph.
+
+The cost of MST.
+
+Time of execution.
+
+The number of operations.
+
+Results:  For each graph, results were obtained showing optimal sets of roads to connect all areas of the city. Note that it works better on dense graphs, where minimum weights need to be updated frequently, since it uses a priority queue. Paintball is more efficient for sparse graphs, where the number of edges is smaller, since it sorts all the edges and connects the components.
+
+CVS
+Prim, graph_20251023_small_1, 16, 12, 25
+Prim, graph_20251023_small_2, 36, 15, 40
+Prim, graph_20251023_small_3, 99, 18, 60
+Prim, graph_20251023_small_4, 114, 22, 70
+Prim, graph_20251023_medium_1, 141, 35, 100
+Prim, graph_20251023_large_1, 55, 45, 120
+Prim, graph_20251023_large_2, 46, 50, 130
+Prim, graph_20251023_large_3, 51, 60, 140
+Prim, graph_20251023_extra_large_1, 27, 80, 150
+Prim, graph_20251023_extra_large_2, 28, 85, 160
+Prim, graph_20251023_extra_large_3, 36, 90, 170
+Kruskal, graph_20251023_small_1, 16, 13, 24
+Kruskal, graph_20251023_small_2, 36, 16, 38
+Kruskal, graph_20251023_small_3, 99, 19, 55
+Kruskal, graph_20251023_small_4, 114, 23, 68
+Kruskal, graph_20251023_medium_1, 141, 37, 105
+Kruskal, graph_20251023_large_1, 55, 47, 115
+Kruskal, graph_20251023_large_2, 46, 52, 125
+Kruskal, graph_20251023_large_3, 51, 62, 135
+Kruskal, graph_20251023_extra_large_1, 27, 82, 145
+Kruskal, graph_20251023_extra_large_2, 28, 88, 155
+Kruskal, graph_20251023_extra_large_3, 36, 93, 165
+
+For small graphs, both algorithms (Prim and Kruskal) give the same cost of MST, but the operations and execution time differ. Depending on the graph structure, Prim can be faster (especially for dense graphs), since it uses a priority queue, whereas Kruskal works with edge sorting.
+
+For large graphs (large, extra large), the Prim algorithm requires more time, but in practice this is due to the number of operations and the scale of work with a priority queue to find minimal edges.
+
+The number of operations increases gradually as the graph size increases, which is expected, as more edges and vertices require more calculations.
+
+Comparison:
+
+Prim works faster on small and medium-sized graphs, while Paintball may be preferable on large graphs, where edge processing is easier through sorting.
+
+The cost of MST for both algorithms is the same, which confirms the theorem that both algorithms always give the same cost of the minimum spanning tree for the same graph.
+
+You can also see the result on the graph that was created in java.
