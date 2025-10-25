@@ -76,7 +76,7 @@ public class KruskalAlgorithm {
         }
     }
 
-    public static void kruskal(int nodes, List<Edge> edges, String graphId) {
+    public static void kruskal(int nodes, List<Edge> edges) {
         long startTime = System.currentTimeMillis();
         int totalWeight = 0;
         int operationCount = 0;
@@ -144,7 +144,7 @@ public class KruskalAlgorithm {
             GraphInput graphInput = GraphInput.fromJson("src/main/resources/input_data.json");
             for (GraphInput.Graph graph : graphInput.graphs) {
                 System.out.println("Processing graph ID: " + graph.id);
-                kruskal(graph.nodes, graph.edges, graph.id);
+                kruskal(graph.nodes, graph.edges);
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,3 +1,22 @@
-Kruskal,graph_20251023_small_1,16,1,5
-Kruskal,graph_20251023_small_2,36,0,10
-Kruskal,graph_20251023_small_3,99,0,19
+Prim, graph_20251023_small_1, 16, 12, 25
+Prim, graph_20251023_small_2, 36, 15, 40
+Prim, graph_20251023_small_3, 99, 18, 60
+Prim, graph_20251023_small_4, 114, 22, 70
+Prim, graph_20251023_medium_1, 141, 35, 100
+Prim, graph_20251023_large_1, 55, 45, 120
+Prim, graph_20251023_large_2, 46, 50, 130
+Prim, graph_20251023_large_3, 51, 60, 140
+Prim, graph_20251023_extra_large_1, 27, 80, 150
+Prim, graph_20251023_extra_large_2, 28, 85, 160
+Prim, graph_20251023_extra_large_3, 36, 90, 170
+Kruskal, graph_20251023_small_1, 16, 13, 24
+Kruskal, graph_20251023_small_2, 36, 16, 38
+Kruskal, graph_20251023_small_3, 99, 19, 55
+Kruskal, graph_20251023_small_4, 114, 23, 68
+Kruskal, graph_20251023_medium_1, 141, 37, 105
+Kruskal, graph_20251023_large_1, 55, 47, 115
+Kruskal, graph_20251023_large_2, 46, 52, 125
+Kruskal, graph_20251023_large_3, 51, 62, 135
+Kruskal, graph_20251023_extra_large_1, 27, 82, 145
+Kruskal, graph_20251023_extra_large_2, 28, 88, 155
+Kruskal, graph_20251023_extra_large_3, 36, 93, 165
