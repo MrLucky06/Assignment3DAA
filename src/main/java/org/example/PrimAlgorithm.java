@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class PrimAlgorithm {
@@ -43,8 +45,6 @@ public class PrimAlgorithm {
             public int nodes;
             public List<Edge> edges;
 
-            public Graph() {}
-
             @JsonCreator
             public Graph(@JsonProperty("id") String id, @JsonProperty("nodes") int nodes, @JsonProperty("edges") List<Edge> edges) {
                 this.id = id;
@@ -54,7 +54,31 @@ public class PrimAlgorithm {
         }
     }
 
-    public static void prim(int nodes, List<Edge> edges) {
+    public static void writeResultsToCSV(String algorithm, String graphId, int totalWeight, long executionTime, int operationCount) {
+        try {
+            FileWriter writer = new FileWriter("results.csv", true);
+            writer.append(algorithm)
+                    .append(",")
+                    .append(graphId)
+                    .append(",")
+                    .append(String.valueOf(totalWeight))
+                    .append(",")
+                    .append(String.valueOf(executionTime))
+                    .append(",")
+                    .append(String.valueOf(operationCount))
+                    .append("\n");
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void prim(int nodes, List<Edge> edges, String graphId) {
+        long startTime = System.currentTimeMillis();
+        int totalWeight = 0;
+        int operationCount = 0;
+
         List<Edge>[] adjList = new ArrayList[nodes];
         for (int i = 0; i < nodes; i++) {
             adjList[i] = new ArrayList<>();
@@ -93,14 +117,16 @@ public class PrimAlgorithm {
                     pq.add(new Edge(u, v, neighbor.weight));
                 }
             }
+
+            operationCount++;
         }
 
-        int totalWeight = 0;
         for (Edge mstEdge : mstEdges) {
             totalWeight += mstEdge.weight;
-            System.out.println("Edge: " + mstEdge.from + " - " + mstEdge.to + " Weight: " + mstEdge.weight);
         }
-        System.out.println("Total weight of MST: " + totalWeight);
+
+        long endTime = System.currentTimeMillis();
+        writeResultsToCSV("Prim", graphId, totalWeight, endTime - startTime, operationCount);
     }
 
     public static void main(String[] args) {
@@ -108,7 +134,7 @@ public class PrimAlgorithm {
             GraphInput graphInput = GraphInput.fromJson("src/main/resources/input_data.json");
             for (GraphInput.Graph graph : graphInput.graphs) {
                 System.out.println("Processing graph ID: " + graph.id);
-                prim(graph.nodes, graph.edges);
+                prim(graph.nodes, graph.edges, graph.id);
             }
         } catch (Exception e) {
             e.printStackTrace();

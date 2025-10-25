@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class KruskalAlgorithm {
@@ -54,7 +56,31 @@ public class KruskalAlgorithm {
         }
     }
 
-    public static void kruskal(int nodes, List<Edge> edges) {
+    public static void writeResultsToCSV(String algorithm, String graphId, int totalWeight, long executionTime, int operationCount) {
+        try {
+            FileWriter writer = new FileWriter("results.csv", true);
+            writer.append(algorithm)
+                    .append(",")
+                    .append(graphId)
+                    .append(",")
+                    .append(String.valueOf(totalWeight))
+                    .append(",")
+                    .append(String.valueOf(executionTime))
+                    .append(",")
+                    .append(String.valueOf(operationCount))
+                    .append("\n");
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void kruskal(int nodes, List<Edge> edges, String graphId) {
+        long startTime = System.currentTimeMillis();
+        int totalWeight = 0;
+        int operationCount = 0;
+
         Collections.sort(edges, Comparator.comparingInt(e -> e.weight));
 
         int[] parent = new int[nodes];
@@ -66,7 +92,6 @@ public class KruskalAlgorithm {
         }
 
         List<Edge> mstEdges = new ArrayList<>();
-        int totalWeight = 0;
 
         for (Edge edge : edges) {
             int rootFrom = find(parent, edge.from);
@@ -77,9 +102,14 @@ public class KruskalAlgorithm {
                 totalWeight += edge.weight;
                 union(parent, rank, rootFrom, rootTo);
             }
+
+            operationCount++;
         }
 
-        System.out.println("Kruskal's MST:");
+        long endTime = System.currentTimeMillis();
+        writeResultsToCSV("Kruskal", graphId, totalWeight, endTime - startTime, operationCount);
+
+        System.out.println("Kruskal's MST for " + graphId + ":");
         for (Edge edge : mstEdges) {
             System.out.println("Edge: " + edge.from + " - " + edge.to + " Weight: " + edge.weight);
         }
@@ -114,10 +144,11 @@ public class KruskalAlgorithm {
             GraphInput graphInput = GraphInput.fromJson("src/main/resources/input_data.json");
             for (GraphInput.Graph graph : graphInput.graphs) {
                 System.out.println("Processing graph ID: " + graph.id);
-                kruskal(graph.nodes, graph.edges);
+                kruskal(graph.nodes, graph.edges, graph.id);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 }
+
